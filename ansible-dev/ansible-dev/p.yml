@@ -1,0 +1,20 @@
+--- 
+- name: Install and configure Apache on Ubuntu 
+  hosts: databaseservers
+  become: yes 
+  vars: 
+    apache_package: apache2 
+    apache_service: apache2 
+ 
+  tasks: 
+    - name: Ensure Apache package is installed 
+      apt: 
+        name: "{{ apache_package }}" 
+        state: present 
+        update_cache: yes 
+ 
+    - name: Ensure Apache service is started and enabled 
+      service: 
+        name: "{{ apache_service }}" 
+        state: started 
+        enabled: yes

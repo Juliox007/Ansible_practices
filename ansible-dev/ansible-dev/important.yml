@@ -1,0 +1,15 @@
+---
+- name: Install and start Apache or HTTPD
+  hosts: all
+  become: yes  # Use this if you need to run tasks with elevated privileges
+  tasks:
+    - name: Install Apache or HTTPD
+      package:
+        name: "{{ 'apache2' if ansible_os_family == 'Debian' else 'httpd' }}"
+        state: present
+
+    - name: Start Apache or HTTPD
+      service:
+        name: "{{ 'apache2' if ansible_os_family == 'Debian' else 'httpd' }}"
+        state: started
+        enabled: yes
